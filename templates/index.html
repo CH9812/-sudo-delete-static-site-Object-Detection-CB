@@ -1,1 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Matcher</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for LinkedIn Icon -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e9ecef;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+        .card-header {
+            background-color: #6c63ff;
+            color: white;
+            border-radius: 15px 15px 0 0;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+        .card-body {
+            padding: 30px;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .btn-primary {
+            background-color: #6c63ff;
+            border-color: #6c63ff;
+        }
+        .btn-primary:hover {
+            background-color: #5a52d6;
+            border-color: #5a52d6;
+        }
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border-color: #bee5eb;
+        }
+        .form-control:focus {
+            border-color: #6c63ff;
+            box-shadow: 0 0 0 0.25rem rgba(108, 99, 255, 0.25);
+        }
+        .header {
+            font-size: 2.2rem;
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+        .footer {
+            text-align: center;
+            font-size: 1rem;
+            color: #6c757d;
+            margin-top: 20px;
+        }
+        .footer a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            color: #5a52d6;
+        }
+        .footer i {
+            color: #0e76a8; /* LinkedIn Icon color */
+            margin-right: 8px;
+        }
+        .upload-text {
+            color: #6c757d;
+            font-size: 1.1rem;
+        }
+        .matching-results {
+            font-size: 1.1rem;
+            color: #495057;
+        }
+        .matching-results li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Job Description and Resume Matcher
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/matcher" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="job_description">Job Description:</label>
+                        <textarea class="form-control" id="job_description" name="job_description" rows="5" placeholder="Enter job description here..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="resumes">Upload Resumes (Multiple files allowed):</label>
+                        <p class="upload-text">Please upload at least 5 resumes in .pdf, .docx, or .txt format.</p>
+                        <input type="file" class="form-control" id="resumes" name="resumes" multiple required accept=".pdf, .docx, .txt">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Match Resumes</button>
+                </form>
+                {% if message %}
+                    <div class="alert alert-info mt-4">
+                        <p>{{ message }}</p>
+                        <ul class="matching-results">
+                            {% for index in range(top_resumes|length) %}
+                                <li>{{ top_resumes[index] }} (Similarity Score: {{ similarity_scores[index] }})</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 Resume Matcher | All Rights Reserved</p>
+            <p>Created by <a href="https://www.linkedin.com/in/chetanbharambe/" target="_blank"><i class="fab fa-linkedin"></i>Chetan Bharambe</a></p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
 

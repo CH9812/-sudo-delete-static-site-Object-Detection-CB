@@ -1,3 +1,4 @@
 Flask
 docx2txt
 PyPDF2
+scikit-learn
